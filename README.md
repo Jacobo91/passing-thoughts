@@ -1,4 +1,4 @@
-# simple add for adding thoughts to a list 
+# simple app for adding thoughts to a list 
 
 ## uses
 
