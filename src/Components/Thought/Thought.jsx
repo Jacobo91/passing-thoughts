@@ -14,6 +14,7 @@ function Thought({ thought, thoughtToRemove }){
                     <p>{thought.thought}</p>
                     <RemoveBtn
                         onClick={passThougthID}
+                        data-testid="removeBtn"
                     >
                         X
                     </RemoveBtn>

@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { getByTestId, render, screen, act } from '@testing-library/react';
+import { getByTestId, render, screen, act, waitFor } from '@testing-library/react';
 import App from './App';
 import userEvent from "@testing-library/user-event";
 
@@ -16,7 +16,7 @@ test("'burgers are great' should appear", () => {
   expect(emptyThought).toBeNull;
 })
 
-test("should show new thought to be present", async() => { 
+test("should show new thought to be present and removed when x button is clicked", async() => { 
   render(<App/>);
 
   const input = screen.getByTestId("text input");
@@ -28,6 +28,18 @@ test("should show new thought to be present", async() => {
   })
 
   const thought = await screen.findByText("burgers are great");
+  const removeBtn = await screen.findByTestId("removeBtn");
   expect(thought).toBeInTheDocument();
+  expect(removeBtn).toBeInTheDocument();
 
-})
+  act(() => { 
+    userEvent.click(removeBtn);
+  });
+
+  await waitFor(() => { 
+    const disapperaingThought = screen.queryByText("burgers are great");
+    expect(disapperaingThought).toBeNull();
+  })
+  
+});
+
